@@ -30,13 +30,16 @@ def evaluate_xacro(context, *args, **kwargs):
 
     mecanum = LaunchConfiguration('mecanum').perform(context)
 
+    namespace = LaunchConfiguration('namespace').perform(context)
+
     # Use xacro to process the file
     xacro_file = os.path.join(get_package_share_directory('x3plus_description'), 'urdf', 'yahboomcar_X3plus.urdf.xacro')
 
     #robot_description_config = xacro.process_file(xacro_file)
     robot_description_config = xacro.process_file(xacro_file, 
             mappings={  
-                "mecanum": mecanum
+                "mecanum": mecanum,
+                "ns" : namespace
                 }).toxml()
 
  
