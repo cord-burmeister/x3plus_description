@@ -201,16 +201,6 @@
         </inertial>
     </xacro:common_link>
 
-    <xacro:fixed_joint name="camera_joint" parent="base_link" child="camera_link"
-        xyz="0.057105 1.7948E-05 0.03755" rpy="0 0 0" />
-
-   <joint name="camera_optical_joint" type="fixed">
-            <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}" />
-            <parent link="camera_link" />
-            <child link="camera_link_optical" />
-        </joint>
-        
-        <link name="camera_link_optical"></link>
 
     <xacro:common_link name="arm_link1" material="White" path="X3plus">
         <inertial>
@@ -247,6 +237,18 @@
 
     <xacro:fixed_joint name="camera_joint" parent="arm_link2b" child="camera_link" xyz="0 -0.07 0"
         rpy="${pi/2} 0 0" />
+
+    <!-- <xacro:fixed_joint name="camera_joint" parent="base_link" child="camera_link"
+        xyz="0.057105 1.7948E-05 0.03755" rpy="0 0 0" /> -->
+
+   <joint name="camera_optical_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}" />
+            <parent link="camera_link" />
+            <child link="camera_link_optical" />
+        </joint>
+        
+        <link name="camera_link_optical"></link>
+
 
     <!-- <xacro:common_link name="arm_link3" material="White" path="X3plus">
         <inertial>
