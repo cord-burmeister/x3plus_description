@@ -14,7 +14,6 @@
 #include <rclcpp/rclcpp.hpp>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_ros/transform_broadcaster.h>
-#include <turtlesim/msg/pose.hpp>
 
 #include <memory>
 #include <string>
@@ -78,8 +77,8 @@ class OdomPublisher:public rclcpp ::Node
             //std::cout<<"curren_time: "<<curren_time.seconds()<<std::endl;
            // std::cout<<"vel_dt: "<<vel_dt_<<std::endl;
     		last_vel_time_ = curren_time;
-			double steer_angle = linear_velocity_y_;
-			double MI_PI = 3.1416;
+			//double steer_angle = linear_velocity_y_;
+			//double MI_PI = 3.1416;
 			
     		double delta_heading = angular_velocity_z_ * vel_dt_; //radians
     		double delta_x = (linear_velocity_x_ * cos(heading_)-linear_velocity_y_*sin(heading_)) * vel_dt_; //m
