@@ -83,11 +83,28 @@ def generate_launch_description():
         parameters=[imu_filter_config]
     )
 
-    ekf_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('robot_localization'), 'launch'),
-            '/ekf_x1_x3_launch.py'])
+    imu_filter_config = os.path.join(              
+        get_package_share_directory('yahboomcar_bringup'),
+        'param',
+        'imu_filter_param.yaml'
+    ) 
+
+    ekf_node = Node(
+         package='robot_localization',
+         executable='ekf_node',
+         name='ekf_filter_node',
+         output='screen',
+         parameters=[os.path.join(
+             get_package_share_directory('yahboomcar_bringup'),
+             'config/ekf.yaml')]
+#             'config/ekf.yaml'), {'use_sim_time': use_sim_time}]
     )
+
+    # ekf_node = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource([os.path.join(
+    #         get_package_share_directory('robot_localization'), 'launch'),
+    #         '/ekf_x1_x3_launch.py'])
+    # )
 
 #    yahboom_joy_node = Node(
 #        package='yahboomcar_ctrl',
