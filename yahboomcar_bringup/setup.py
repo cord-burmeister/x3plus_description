@@ -27,12 +27,12 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        'Mcnamu_driver_X3Plus	= scripts.Mcnamu_X3plus:main',
-        'calibrate_linear = scripts.calibrate_linear:main', 
-        'calibrate_angular = scripts.calibrate_angular:main',
+        'Mcnamu_driver_X3Plus	= yahboomcar_bringup.Mcnamu_X3plus:main',
+        'calibrate_linear = yahboomcar_bringup.calibrate_linear:main', 
+        'calibrate_angular = yahboomcar_bringup.calibrate_angular:main',
         'Mcnamu_driver_X3	= yahboomcar_bringup.Mcnamu_driver_X3:main',
-        'calibrate_linear_X3 = yahboomcar_bringup.calibrate_linear_X3:main', 
-        'calibrate_angular_X3 = yahboomcar_bringup.calibrate_angular_X3:main',
+ #       'calibrate_linear_X3 = yahboomcar_bringup.calibrate_linear_X3:main', 
+ #       'calibrate_angular_X3 = yahboomcar_bringup.calibrate_angular_X3:main',
        ],
     },
 )

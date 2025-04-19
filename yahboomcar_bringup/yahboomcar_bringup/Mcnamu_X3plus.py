@@ -182,7 +182,7 @@ class yahboomcar_driver:
         self.imuPublisher.unregister()
         self.EdiPublisher.unregister()
         self.volPublisher.unregister()
-        self.staPublisher.unregister()
+        ## TODO: self.staPublisher.unregister()
         self.magPublisher.unregister()
         self.sub_cmd_vel.unregister()
         self.sub_RGBLight.unregister()

@@ -22,17 +22,19 @@ from rclpy.clock import Clock
 car_type_dic={
     'R2':5,
     'X3':1,
+    'X3Plus':2,
     'NONE':-1
 }
 class yahboomcar_driver(Node):
 	def __init__(self, name):
 		super().__init__(name)
+#		rclpy.on_shutdown(self.cancel)
 		global car_type_dic
 		self.RA2DE = 180 / pi
 		self.car = Rosmaster()
-		self.car.set_car_type(1)
+		self.car.set_car_type(2)
 		#get parameter
-		self.declare_parameter('car_type', 'X3')
+		self.declare_parameter('car_type', 'X3Plus')
 		self.car_type = self.get_parameter('car_type').get_parameter_value().string_value
 		print (self.car_type)
 		self.declare_parameter('imu_link', 'imu_link')
@@ -59,7 +61,7 @@ class yahboomcar_driver(Node):
 		#create publisher
 		self.EdiPublisher = self.create_publisher(Float32,"edition",100)
 		self.volPublisher = self.create_publisher(Float32,"voltage",100)
-		self.staPublisher = self.create_publisher(JointState,"joint_states",100)
+		## TODO: self.staPublisher = self.create_publisher(JointState,"joint_states",100)
 		self.velPublisher = self.create_publisher(Twist,"vel_raw",50)
 		self.imuPublisher = self.create_publisher(Imu,"/imu/data_raw",100)
 		self.magPublisher = self.create_publisher(MagneticField,"/imu/mag",100)
@@ -164,11 +166,27 @@ class yahboomcar_driver(Node):
 		self.volPublisher.publish(battery)
 		self.EdiPublisher.publish(edition)
 		
-		
+	def cleanup(self):
+		self.car.set_car_motion(0, 0, 0)
+		self.velPublisher.unregister()
+		self.imuPublisher.unregister()
+		self.EdiPublisher.unregister()
+		self.volPublisher.unregister()
+        ## TODO: self.staPublisher.unregister()
+		self.magPublisher.unregister()
+		self.sub_cmd_vel.unregister()
+		self.sub_RGBLight.unregister()
+		self.sub_Buzzer.unregister()
+        # Always stop the robot when shutting down the node
+		rclpy.loginfo("Close the robot...")
+		rclpy.sleep(1)
 			
 def main():
 	rclpy.init() 
 	driver = yahboomcar_driver('driver_node')
+
+	# Register the cleanup method to be called on shutdown
+	rclpy.get_default_context().on_shutdown(driver.cleanup)
 	rclpy.spin(driver)
 
 '''if __name__ == '__main__':

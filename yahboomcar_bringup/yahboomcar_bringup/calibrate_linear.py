@@ -120,7 +120,7 @@ class CalibrateLinear():
         self.odom_linear_scale_correction = config['odom_linear_scale_correction']
         self.start_test = config['start_test']
         self.direction = int(config['direction'])
-        print "start_test: ", self.start_test
+        print ("start_test: ", self.start_test)
         return config
 
     def get_position(self):
